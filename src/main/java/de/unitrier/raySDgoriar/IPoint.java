@@ -1,7 +1,7 @@
 package de.unitrier.raySDgoriar;
 
 class IPoint {
-	public static final float epsilon = 0.0001f;
+	public static final float EPSILON = 0.0001f;
 	Triangle triangle;
 	Vec3D point;
 	float dist;

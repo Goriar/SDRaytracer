@@ -18,7 +18,7 @@ class Ray {
 
 	// see Möller&Haines, page 305
 	IPoint intersect(Triangle t) {
-		float epsilon = IPoint.epsilon;
+		float epsilon = IPoint.EPSILON;
 		Vec3D e1 = t.p2.minus(t.p1);
 		Vec3D e2 = t.p3.minus(t.p1);
 		Vec3D p = dir.cross(e2);

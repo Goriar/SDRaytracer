@@ -58,7 +58,7 @@ public class SDRaytracer extends JFrame {
 		@SuppressWarnings("serial")
 		JPanel area = new JPanel() {
 			public void paint(Graphics g) {
-				System.out.println("fovx=" + scene.fovx + ", fovy=" + scene.fovy + ", xangle=" + x_angle_factor + ", yangle="
+				System.out.println("fovx=" + Scene.FOVX + ", fovy=" + Scene.FOVY + ", xangle=" + x_angle_factor + ", yangle="
 						+ y_angle_factor);
 				if (image == null)
 					return;

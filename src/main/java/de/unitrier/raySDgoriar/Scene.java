@@ -13,8 +13,8 @@ public class Scene {
 			new Light(new Vec3D(-100, 200, 300), 0.0f, 0, 0.5f)
 			// ,new Light(new Vec3D(-100,0,0), new RGB(0.0f,0.8f,0.0f))
 	};
-	public static final float fovx = (float) 0.628;
-	public static final float fovy = (float) 0.628;
+	public static final float FOVX = (float) 0.628;
+	public static final float FOVY = (float) 0.628;
 	List<Triangle> triangles;
 	private int maxRec = 3;
 
@@ -62,8 +62,8 @@ public class Scene {
 	}
 
 	void renderImage(SDRaytracer sdRaytracer) {
-		tan_fovx = Math.tan(fovx);
-		tan_fovy = Math.tan(fovy);
+		tan_fovx = Math.tan(FOVX);
+		tan_fovy = Math.tan(FOVY);
 		for (int i = 0; i < sdRaytracer.width; i++) {
 			sdRaytracer.futureList[i] = sdRaytracer.eservice.submit(new RaytraceTask(sdRaytracer, i));
 		}

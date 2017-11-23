@@ -36,7 +36,7 @@ class RaytraceTask implements Callable<Object> {
 		if (rec > tracer.scene.getMaxRec())
 			return Light.black;
 		IPoint ip = hitObject(ray);
-		if (ip.dist > IPoint.epsilon)
+		if (ip.dist > IPoint.EPSILON)
 			return lighting(ray, ip, rec);
 		else
 			return Light.black;
@@ -52,7 +52,7 @@ class RaytraceTask implements Callable<Object> {
 			shadow_ray.dir = light.position.minus(point).mult(-1);
 			shadow_ray.dir.normalize();
 			IPoint ip2 = hitObject(shadow_ray);
-			if (ip2.dist < IPoint.epsilon) {
+			if (ip2.dist < IPoint.EPSILON) {
 				float ratio = Math.max(0, shadow_ray.dir.dot(triangle.normal));
 				color = Light.addColors(color, light, ratio);
 			}
