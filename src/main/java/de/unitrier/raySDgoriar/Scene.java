@@ -13,10 +13,14 @@ public class Scene {
 			new Light(new Vec3D(-100, 200, 300), 0.0f, 0, 0.5f)
 			// ,new Light(new Vec3D(-100,0,0), new RGB(0.0f,0.8f,0.0f))
 	};
-	public final float fovx = (float) 0.628;
-	public final float fovy = (float) 0.628;
+	public static final float fovx = (float) 0.628;
+	public static final float fovy = (float) 0.628;
 	List<Triangle> triangles;
+	private int maxRec = 3;
 
+	public int getMaxRec() {
+		return maxRec;
+	}
 	void createScene(SDRaytracer sdRaytracer) {
 		triangles = new ArrayList<Triangle>();
 
@@ -42,7 +46,7 @@ public class Scene {
 
 		for (int procs = 1; procs < 6; procs++) {
 
-			RaytraceTask.maxRec = procs - 1;
+			maxRec = procs - 1;
 			System.out.print(procs);
 			for (int i = 0; i < 10; i++) {
 				start = System.currentTimeMillis();

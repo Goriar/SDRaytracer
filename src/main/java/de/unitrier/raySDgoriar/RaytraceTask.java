@@ -5,8 +5,6 @@ import java.util.concurrent.Callable;
 class RaytraceTask implements Callable<Object> {
 	SDRaytracer tracer;
 	int id;
-	public static int maxRec = 3;
-
 	RaytraceTask(SDRaytracer t, int ii) {
 		tracer = t;
 		id = ii;
@@ -24,7 +22,7 @@ class RaytraceTask implements Callable<Object> {
 					dj = j;
 				}
 				Ray eye_ray = new Ray();
-				eye_ray.setStart(tracer.startX, tracer.startY, tracer.startZ); // ro
+				eye_ray.setStart(tracer.startX, tracer.startY, tracer.startZ); 
 				eye_ray.setDir((float) (((0.5 + di) * tracer.scene.tan_fovx * 2.0) / tracer.width - tracer.scene.tan_fovx),
 						(float) (((0.5 + dj) * tracer.scene.tan_fovy * 2.0) / tracer.height - tracer.scene.tan_fovy), (float) 1f); // rd
 				eye_ray.normalize();
@@ -35,9 +33,9 @@ class RaytraceTask implements Callable<Object> {
 	}
 
 	Light rayTrace(Ray ray, int rec) {
-		if (rec > maxRec)
+		if (rec > tracer.scene.getMaxRec())
 			return Light.black;
-		IPoint ip = hitObject(ray); // (ray, p, n, triangle);
+		IPoint ip = hitObject(ray);
 		if (ip.dist > IPoint.epsilon)
 			return lighting(ray, ip, rec);
 		else
@@ -45,7 +43,7 @@ class RaytraceTask implements Callable<Object> {
 	}
 
 	Light lighting(Ray ray, IPoint ip, int rec) {
-		Vec3D point = ip.ipoint;
+		Vec3D point = ip.point;
 		Triangle triangle = ip.triangle;
 		Light color = Light.addColors(triangle.color, Light.ambient_color, 1);
 		Ray shadow_ray = new Ray();
@@ -76,10 +74,9 @@ class RaytraceTask implements Callable<Object> {
 		float idist = -1;
 		for (Triangle t : tracer.scene.triangles) {
 			IPoint ip = ray.intersect(t);
-			if (ip.dist != -1)
-				if ((idist == -1) || (ip.dist < idist)) { // save that intersection
+			if (ip.dist != -1 && ((idist == -1) || (ip.dist < idist))){ // save that intersection
 					idist = ip.dist;
-					isect.ipoint = ip.ipoint;
+					isect.point = ip.point;
 					isect.dist = ip.dist;
 					isect.triangle = t;
 				}

@@ -64,7 +64,7 @@ public class SDRaytracer extends JFrame {
 					return;
 				for (int i = 0; i < width; i++)
 					for (int j = 0; j < height; j++) {
-						g.setColor(image[i][j].color());
+						g.setColor(image[i][j].getColor());
 						// zeichne einzelnen Pixel
 						g.drawLine(i, height - j, i, height - j);
 					}

@@ -3,7 +3,9 @@ package de.unitrier.raySDgoriar;
 import java.awt.Color;
 
 class Light {
-   float red,green,blue;
+   float red;
+   float green;
+   float blue;
    Vec3D position;
    Color color;
    public static final Light background_color = new Light(0.05f, 0.05f, 0.05f);
@@ -22,7 +24,7 @@ class Light {
 	   position = pos;
    }
     
-   Color color()
+   Color getColor()
     { if (color!=null) return color;
       color=new Color((int) (red*255),(int) (green*255), (int) (blue*255));
       return color;
