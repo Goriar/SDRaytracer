@@ -40,6 +40,7 @@ public class SDRaytracer extends JFrame {
 	}
 
 	SDRaytracer() {
+		scene = new Scene();
 		scene.createScene(this);
 
 		if (!profiling)
