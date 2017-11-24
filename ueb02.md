@@ -1,5 +1,8 @@
 # Übung 2
 
+Christopher Baumann<br>
+1279415
+
 ## Aufgabe 1
 
 ### Anti-Patterns:
@@ -21,4 +24,7 @@
 - Ausgeschlagenes Erbe:
     - Typ-B tritt nicht auf, da die einzige überschrieben Methode keyPressed() ist, welches die korrekten Parameter besitzt
     - Typ-A kann sich höchstens auf SDRaytrace beziehen, welche von JFrame erbt. Es werden jedoch einige Methoden der Oberklasse verwendet, um die Szene aufzubauen. Da ein JFrame ein essenzieller Teil von Java-Spring ist, wäre es auch nicht ratsam von einer höheren Klasse zu erben.
-    - 
+
+## Aufgabe 2
+
+Um den Blob zu entfernen wurden alle nötigen Klassen auf ihre eigenen Dateien aufgeteilt. In der Datei SDRaytracer.java ist somit nur noch die Klasse SDRaytracer. Diese besitzt nun auch nicht mehr eine Vielzahl verschiedener Funktionen, sondern nur noch eine Main Funktion und den Konstruktor. Die restlichen Funktionen wurden auf die anderen Klassen aufgeteilt.
