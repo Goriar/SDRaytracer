@@ -17,6 +17,8 @@ public class Scene {
 	public static final float FOVY = (float) 0.628;
 	List<Triangle> triangles;
 	private int maxRec = 3;
+	int y_angle_factor = 4;
+	int x_angle_factor = -4;
 
 	public int getMaxRec() {
 		return maxRec;
@@ -30,8 +32,8 @@ public class Scene {
 		addCube(50, -20, -40, 10, 80, 100, new Light(.5f, .5f, .5f), 0.2f);
 		addCube(-70, -26, -40, 130, 3, 40, new Light(.5f, .5f, .5f), 0.2f);
 
-		Matrix mRx = Matrix.createXRotation((float) (sdRaytracer.x_angle_factor * Math.PI / 16));
-		Matrix mRy = Matrix.createYRotation((float) (sdRaytracer.y_angle_factor * Math.PI / 16));
+		Matrix mRx = Matrix.createXRotation((float) (x_angle_factor * Math.PI / 16));
+		Matrix mRy = Matrix.createYRotation((float) (y_angle_factor * Math.PI / 16));
 		Matrix mT = Matrix.createTranslation(0, 0, 200);
 		Matrix m = mT.mult(mRx).mult(mRy);
 		m.print();

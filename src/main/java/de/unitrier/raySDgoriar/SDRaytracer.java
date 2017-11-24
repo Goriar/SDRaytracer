@@ -28,12 +28,8 @@ public class SDRaytracer extends JFrame {
 	int nrOfProcessors = Runtime.getRuntime().availableProcessors();
 	ExecutorService eservice = Executors.newFixedThreadPool(nrOfProcessors);
 
-	int rayPerPixel = 1;
-	int startX, startY, startZ;
 	Light[][] image = new Light[width][height];
 	Scene scene;
-	int y_angle_factor = 4, x_angle_factor = -4;
-
 	public static void main(String argv[]) {
 		long start = System.currentTimeMillis();
 		SDRaytracer sdr = new SDRaytracer();
@@ -58,8 +54,8 @@ public class SDRaytracer extends JFrame {
 		@SuppressWarnings("serial")
 		JPanel area = new JPanel() {
 			public void paint(Graphics g) {
-				System.out.println("fovx=" + Scene.FOVX + ", fovy=" + Scene.FOVY + ", xangle=" + x_angle_factor + ", yangle="
-						+ y_angle_factor);
+				System.out.println("fovx=" + Scene.FOVX + ", fovy=" + Scene.FOVY + ", xangle=" + scene.x_angle_factor + ", yangle="
+						+ scene.y_angle_factor);
 				if (image == null)
 					return;
 				for (int i = 0; i < width; i++)
@@ -75,7 +71,7 @@ public class SDRaytracer extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				boolean redraw = false;
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					x_angle_factor--;
+					scene.x_angle_factor--;
 					// mainLight.position.y-=10;
 					// fovx=fovx+0.1f;
 					// fovy=fovx;
@@ -83,7 +79,7 @@ public class SDRaytracer extends JFrame {
 					redraw = true;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					x_angle_factor++;
+					scene.x_angle_factor++;
 					// mainLight.position.y+=10;
 					// fovx=fovx-0.1f;
 					// fovy=fovx;
@@ -91,7 +87,7 @@ public class SDRaytracer extends JFrame {
 					redraw = true;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					y_angle_factor--;
+					scene.y_angle_factor--;
 					// mainLight.position.x-=10;
 					// startX-=10;
 					// fovx=fovx+0.1f;
@@ -99,7 +95,7 @@ public class SDRaytracer extends JFrame {
 					redraw = true;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					y_angle_factor++;
+					scene.y_angle_factor++;
 					// mainLight.position.x+=10;
 					// startX+=10;
 					// fovx=fovx-0.1f;

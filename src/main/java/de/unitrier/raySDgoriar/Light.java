@@ -8,9 +8,9 @@ class Light {
    float blue;
    Vec3D position;
    Color color;
-   public static final Light background_color = new Light(0.05f, 0.05f, 0.05f);
-   public static final Light ambient_color=new Light(0.01f,0.01f,0.01f);
-   public static final Light black = new Light(0.0f, 0.0f, 0.0f);
+   public static final Light BACKGROUND_COLOR = new Light(0.05f, 0.05f, 0.05f);
+   public static final Light AMBIENT_COLOR=new Light(0.01f,0.01f,0.01f);
+   public static final Light BLACK = new Light(0.0f, 0.0f, 0.0f);
    
    Light(float r, float g, float b)
     { if (r>1) r=1; else if (r<0) r=0;

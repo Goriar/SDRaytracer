@@ -5,6 +5,10 @@ import java.util.concurrent.Callable;
 class RaytraceTask implements Callable<Object> {
 	SDRaytracer tracer;
 	int id;
+	int startX;
+	int startY;
+	int startZ;
+	public static final int RAYS_PER_PIXEL = 1;
 	RaytraceTask(SDRaytracer t, int ii) {
 		tracer = t;
 		id = ii;
@@ -14,19 +18,19 @@ class RaytraceTask implements Callable<Object> {
 		Light[] col = new Light[tracer.height];
 		for (int j = 0; j < tracer.height; j++) {
 			tracer.image[id][j] = new Light(0, 0, 0);
-			for (int k = 0; k < tracer.rayPerPixel; k++) {
+			for (int k = 0; k < RAYS_PER_PIXEL; k++) {
 				double di = id + (Math.random() / 2 - 0.25);
 				double dj = j + (Math.random() / 2 - 0.25);
-				if (tracer.rayPerPixel == 1) {
+				if (RAYS_PER_PIXEL == 1) {
 					di = id;
 					dj = j;
 				}
 				Ray eye_ray = new Ray();
-				eye_ray.setStart(tracer.startX, tracer.startY, tracer.startZ); 
+				eye_ray.setStart(startX, startY, startZ); 
 				eye_ray.setDir((float) (((0.5 + di) * tracer.scene.tan_fovx * 2.0) / tracer.width - tracer.scene.tan_fovx),
-						(float) (((0.5 + dj) * tracer.scene.tan_fovy * 2.0) / tracer.height - tracer.scene.tan_fovy), (float) 1f); // rd
+						(float) (((0.5 + dj) * tracer.scene.tan_fovy * 2.0) / tracer.height - tracer.scene.tan_fovy), (float) 1f); 
 				eye_ray.normalize();
-				col[j] = Light.addColors(tracer.image[id][j], rayTrace(eye_ray, 0), 1.0f / tracer.rayPerPixel);
+				col[j] = Light.addColors(tracer.image[id][j], rayTrace(eye_ray, 0), 1.0f / RAYS_PER_PIXEL);
 			}
 		}
 		return col;
@@ -34,18 +38,18 @@ class RaytraceTask implements Callable<Object> {
 
 	Light rayTrace(Ray ray, int rec) {
 		if (rec > tracer.scene.getMaxRec())
-			return Light.black;
+			return Light.BLACK;
 		IPoint ip = hitObject(ray);
 		if (ip.dist > IPoint.EPSILON)
 			return lighting(ray, ip, rec);
 		else
-			return Light.black;
+			return Light.BLACK;
 	}
 
 	Light lighting(Ray ray, IPoint ip, int rec) {
 		Vec3D point = ip.point;
 		Triangle triangle = ip.triangle;
-		Light color = Light.addColors(triangle.color, Light.ambient_color, 1);
+		Light color = Light.addColors(triangle.color, Light.AMBIENT_COLOR, 1);
 		Ray shadow_ray = new Ray();
 		for (Light light : tracer.scene.lights) {
 			shadow_ray.start = point;
